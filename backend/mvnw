@@ -1,0 +1,54 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Apache Maven Wrapper startup batch script, version 3.2.0
+# ----------------------------------------------------------------------------
+
+# Resolve attributes and environment variables
+if [ -z "$MAVEN_SKIP_RC" ]; then
+  if [ -f /etc/mavenrc ]; then
+    . /etc/mavenrc
+  fi
+  if [ -f "$HOME/.mavenrc" ]; then
+    . "$HOME/.mavenrc"
+  fi
+fi
+
+# OS specific support. $var _must_ be set to true or false.
+cygwin=false
+darwin=false
+mingw=false
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+  DARWIN*) darwin=true ;;
+  MINGW*) mingw=true ;;
+esac
+
+# Locate wrapper jar
+PRG="$0"
+while [ -h "$PRG" ]; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`/"$link"
+  fi
+done
+
+BASE_DIR=`dirname "$PRG"`
+WRAPPER_JAR="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
+WRAPPER_LAUNCHER="org.apache.maven.wrapper.MavenWrapperMain"
+
+# Check if Java is available
+if [ -n "$JAVA_HOME" ]; then
+  JAVACMD="$JAVA_HOME/bin/java"
+else
+  JAVACMD="java"
+fi
+
+if [ ! -x "$JAVACMD" ] && ! command -v "$JAVACMD" > /dev/null 2>&1; then
+  echo "Error: JAVA_HOME is not set and 'java' command could not be found." >&2
+  exit 1
+fi
+
+exec "$JAVACMD" -classpath "$WRAPPER_JAR" "-Dmaven.multiModuleProjectDirectory=$BASE_DIR" $WRAPPER_LAUNCHER "$@"
