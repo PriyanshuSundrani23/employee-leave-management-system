@@ -1,6 +1,7 @@
 package com.cognizant.backend.service;
 
 import com.cognizant.backend.entity.Employee;
+import com.cognizant.backend.exception.EmployeeNotFoundException;
 import com.cognizant.backend.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployeeById(Long id) {
-        return employeeRepository.findById(id).orElse(null);
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + id + " not found"));
+    }
+
+    @Override
+    public Employee updateEmployee(Long id, Employee employeeDetails) {
+        Employee existingEmployee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + id + " not found"));
+
+        existingEmployee.setName(employeeDetails.getName());
+        existingEmployee.setEmail(employeeDetails.getEmail());
+        existingEmployee.setDepartment(employeeDetails.getDepartment());
+        existingEmployee.setDesignation(employeeDetails.getDesignation());
+
+        return employeeRepository.save(existingEmployee);
     }
 
     @Override
