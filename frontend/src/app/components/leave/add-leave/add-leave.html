@@ -1,0 +1,90 @@
+<div class="card">
+  <h2 class="card-title">{{ leaveId ? 'Edit Leave Application' : 'Apply for Leave' }}</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label class="form-label" for="employeeId">Employee ID</label>
+      <input
+        id="employeeId"
+        type="number"
+        class="form-control"
+        [class.is-invalid]="leaveForm.get('employeeId')?.touched && leaveForm.get('employeeId')?.invalid"
+        formControlName="employeeId"
+        placeholder="e.g. 1"
+      />
+      <div *ngIf="leaveForm.get('employeeId')?.touched && leaveForm.get('employeeId')?.errors?.['required']" class="validation-error">
+        Employee ID is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="leaveType">Leave Type</label>
+      <input
+        id="leaveType"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="leaveForm.get('leaveType')?.touched && leaveForm.get('leaveType')?.invalid"
+        formControlName="leaveType"
+        placeholder="e.g. Sick Leave, Annual Leave"
+      />
+      <div *ngIf="leaveForm.get('leaveType')?.touched && leaveForm.get('leaveType')?.errors?.['required']" class="validation-error">
+        Leave Type is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="startDate">Start Date</label>
+      <input
+        id="startDate"
+        type="date"
+        class="form-control"
+        [class.is-invalid]="leaveForm.get('startDate')?.touched && leaveForm.get('startDate')?.invalid"
+        formControlName="startDate"
+      />
+      <div *ngIf="leaveForm.get('startDate')?.touched && leaveForm.get('startDate')?.errors?.['required']" class="validation-error">
+        Start Date is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="endDate">End Date</label>
+      <input
+        id="endDate"
+        type="date"
+        class="form-control"
+        [class.is-invalid]="leaveForm.get('endDate')?.touched && leaveForm.get('endDate')?.invalid"
+        formControlName="endDate"
+      />
+      <div *ngIf="leaveForm.get('endDate')?.touched && leaveForm.get('endDate')?.errors?.['required']" class="validation-error">
+        End Date is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="reason">Reason</label>
+      <textarea
+        id="reason"
+        class="form-control"
+        [class.is-invalid]="leaveForm.get('reason')?.touched && leaveForm.get('reason')?.invalid"
+        formControlName="reason"
+        rows="3"
+        placeholder="Brief description of leave reason"
+      ></textarea>
+      <div *ngIf="leaveForm.get('reason')?.touched && leaveForm.get('reason')?.errors?.['required']" class="validation-error">
+        Reason is required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ leaveId ? 'Update Leave' : 'Apply for Leave' }}
+    </button>
+  </form>
+</div>

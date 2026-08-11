@@ -1,0 +1,80 @@
+<div class="card">
+  <h2 class="card-title">{{ employeeId ? 'Edit Employee' : 'Add Employee' }}</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label class="form-label" for="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="employeeForm.get('name')?.touched && employeeForm.get('name')?.invalid"
+        formControlName="name"
+        placeholder="e.g. John Doe"
+      />
+      <div *ngIf="employeeForm.get('name')?.touched && employeeForm.get('name')?.errors?.['required']" class="validation-error">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        [class.is-invalid]="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid"
+        formControlName="email"
+        placeholder="e.g. john@example.com"
+      />
+      <div *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.errors?.['required']" class="validation-error">
+        Email is required.
+      </div>
+      <div *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.errors?.['email']" class="validation-error">
+        Please enter a valid email.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="department">Department</label>
+      <input
+        id="department"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="employeeForm.get('department')?.touched && employeeForm.get('department')?.invalid"
+        formControlName="department"
+        placeholder="e.g. IT, HR, Finance"
+      />
+      <div *ngIf="employeeForm.get('department')?.touched && employeeForm.get('department')?.errors?.['required']" class="validation-error">
+        Department is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="designation">Designation</label>
+      <input
+        id="designation"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="employeeForm.get('designation')?.touched && employeeForm.get('designation')?.invalid"
+        formControlName="designation"
+        placeholder="e.g. Software Engineer"
+      />
+      <div *ngIf="employeeForm.get('designation')?.touched && employeeForm.get('designation')?.errors?.['required']" class="validation-error">
+        Designation is required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ employeeId ? 'Update Employee' : 'Add Employee' }}
+    </button>
+  </form>
+</div>

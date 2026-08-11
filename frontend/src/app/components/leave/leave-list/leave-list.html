@@ -1,0 +1,55 @@
+<div class="card">
+  <h2 class="card-title">Leave Applications</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="leaves.length > 0; else noLeaves" class="table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Employee ID</th>
+          <th>Leave Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leave of leaves">
+          <td>#{{ leave.id }}</td>
+          <td>Emp #{{ leave.employeeId }}</td>
+          <td><strong>{{ leave.leaveType }}</strong></td>
+          <td>{{ leave.startDate }}</td>
+          <td>{{ leave.endDate }}</td>
+          <td>{{ leave.reason }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'badge-pending': leave.status === 'Pending',
+              'badge-approved': leave.status === 'Approved',
+              'badge-rejected': leave.status === 'Rejected'
+            }">{{ leave.status }}</span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <ng-container *ngIf="leave.status === 'Pending'">
+                <button class="btn btn-approve" (click)="approveLeave(leave)">Approve</button>
+                <button class="btn btn-reject" (click)="rejectLeave(leave)">Reject</button>
+              </ng-container>
+              <button class="btn btn-edit" (click)="editLeave(leave.id)">Edit</button>
+              <button class="btn btn-delete" (click)="deleteLeave(leave.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noLeaves>
+    <p style="color: var(--text-muted); font-style: italic;">No leave applications found.</p>
+  </ng-template>
+</div>

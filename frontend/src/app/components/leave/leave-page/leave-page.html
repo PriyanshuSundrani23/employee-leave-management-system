@@ -1,0 +1,4 @@
+<h2>Leave Management</h2>
+<app-leave-list (leaveSelected)="onLeaveSelected($event)"></app-leave-list>
+<hr />
+<app-add-leave [leaveId]="selectedLeaveId" (leaveAdded)="onLeaveAdded()"></app-add-leave>

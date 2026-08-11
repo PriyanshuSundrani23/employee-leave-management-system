@@ -1,0 +1,41 @@
+<div class="card">
+  <h2 class="card-title">Employee Directory</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="employees.length > 0; else noEmployees" class="table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>#{{ emp.id }}</td>
+          <td><strong>{{ emp.name }}</strong></td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.designation }}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn btn-edit" (click)="editEmployee(emp.id)">Edit</button>
+              <button class="btn btn-delete" (click)="deleteEmployee(emp.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noEmployees>
+    <p style="color: var(--text-muted); font-style: italic;">No employees found in system.</p>
+  </ng-template>
+</div>

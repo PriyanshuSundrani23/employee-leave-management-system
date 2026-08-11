@@ -1,0 +1,4 @@
+<h2>Employee Management</h2>
+<app-employee-list (employeeSelected)="onEmployeeSelected($event)"></app-employee-list>
+<hr />
+<app-add-employee [employeeId]="selectedEmployeeId" (employeeAdded)="onEmployeeAdded()"></app-add-employee>
